@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const COMPANY_ID = process.env.REACT_APP_COMPANY_ID;
+const API_BASE_URL = "http://localhost:5000";  // 👈 Directly using localhost, no .env
+const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
 // Shared headers
 const BASE_HEADERS = {
   "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const BASE_HEADERS = {
 // ------------------------------LOGIN--------------------------- //
 export const loginUser = async (email, password) => {
   const tryLogin = async (userType) => {
-    const res = await fetch(`${API_BASE_URL}/${userType}/login`, {
+    const res = await fetch(`${API_BASE_URL}/api/${userType}/login`, {
       method: "POST",
       headers: BASE_HEADERS,
       credentials: "include",
@@ -39,7 +39,7 @@ export const loginUser = async (email, password) => {
 
 // ------------------------------SIGNUP--------------------------- //
 export const signupUser = async (fullName, email, password, userType = "processperson") => {
-  const res = await fetch(`${API_BASE_URL}/${userType}/signup`, {
+  const res = await fetch(`${API_BASE_URL}/api/${userType}/signup`, {
     method: "POST",
     headers: BASE_HEADERS,
     credentials: "include",
@@ -61,7 +61,7 @@ export const signupUser = async (fullName, email, password, userType = "processp
 export const logoutUser = async (userType = "customer") => {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${API_BASE_URL}/${userType}/logout`, {
+  const res = await fetch(`${API_BASE_URL}/api/${userType}/logout`, {
     method: "POST",
     headers: {
       ...BASE_HEADERS,

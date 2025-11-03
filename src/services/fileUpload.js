@@ -1,6 +1,6 @@
 import apiService from "./apiService";
 
-const COMPANY_ID = process.env.REACT_APP_COMPANY_ID;
+const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
 export const uploadFile = async (input) => {
   const formData = new FormData();
 
@@ -41,7 +41,7 @@ export const uploadFile = async (input) => {
   }
 
   try {
-    const response = await apiService.post("/client-leads/upload", formData, {
+    const response = await apiService.post("api/client-leads/upload", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-company-id": COMPANY_ID,

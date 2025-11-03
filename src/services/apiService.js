@@ -1,6 +1,6 @@
 import axios from "axios";
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const COMPANY_ID = process.env.REACT_APP_COMPANY_ID;
+const API_BASE_URL = "http://localhost:5000";
+const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
 
 const apiService = axios.create({
   baseURL: API_BASE_URL,
@@ -26,7 +26,7 @@ apiService.interceptors.request.use(
 
 export const updateUserLoginStatus = async (userId, canLogin) => {
   try {
-    const response = await apiService.put("/login-status", { userId, canLogin });
+    const response = await apiService.put("api/login-status", { userId, canLogin });
     return response.data;
   } catch (error) {
     console.error(`❌ Error updating login status for user ${userId}:`, error);
@@ -36,7 +36,7 @@ export const updateUserLoginStatus = async (userId, canLogin) => {
 
 export const getAllConvertedClientsApi = async () => {
   try {
-    const response = await apiService.get("/converted"); // 👉 No params
+    const response = await apiService.get("api/converted"); // 👉 No params
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all converted leads:", error.response?.data || error.message);
@@ -45,22 +45,22 @@ export const getAllConvertedClientsApi = async () => {
 };
 // Toggle Manager Login Access
 export const toggleManagerLoginAccess = async (managerId, can_login) => {
-  return await apiService.post("/manager/toggle-login", { managerId, can_login });
+  return await apiService.post("api/manager/toggle-login", { managerId, can_login });
 };
 
 // Toggle HR Login Access
 export const toggleHrLoginAccess = async (hrId, can_login) => {
-  return await apiService.post("/hr/toggle-login", { hrId, can_login });
+  return await apiService.post("api/hr/toggle-login", { hrId, can_login });
 };
 
 // Toggle Process Person Login Access
 export const toggleProcessPersonLoginAccess = async (processPersonId, can_login) => {
-  return await apiService.post("/processperson/toggle-login", { processPersonId, can_login });
+  return await apiService.post("api/processperson/toggle-login", { processPersonId, can_login });
 };
 
 export const toggleTeamLeadLoginAccess = async (userId, can_login) => {
   try {
-    const response = await apiService.post("/admin/toggle-login", { userId, can_login });
+    const response = await apiService.post("api/admin/toggle-login", { userId, can_login });
     return response.data;
   } catch (err) {
     console.error("❌ Error toggling Team Lead login:", err);
@@ -70,7 +70,7 @@ export const toggleTeamLeadLoginAccess = async (userId, can_login) => {
 // ✅ Function to fetch all leads
 export const fetchLeadsAPI = async (limit = 10, offset = 0) => {
   try {
-    const response = await apiService.get(`/client-leads/getClients?limit=${limit}&offset=${offset}`);
+    const response = await apiService.get(`api/client-leads/getClients?limit=${limit}&offset=${offset}`);
     return response.data; 
   } catch (error) {
     console.error("❌ Error fetching leads:", error);
@@ -97,7 +97,7 @@ export const fetchAssignedLeads = async (executiveName) => {
 // ✅ Function to fetch leads with status "Follow-Up"
 export const fetchFollowUpLeadsAPI = async () => {
   try {
-    const response = await apiService.get("/client-leads/followup-leads");
+    const response = await apiService.get("api/client-leads/followup-leads");
     return response.data.leads || []; // Assuming you're using only the leads array
   } catch (error) {
     console.error("❌ Error fetching follow-up leads:", error);
@@ -108,7 +108,7 @@ export const fetchFollowUpLeadsAPI = async () => {
 // ✅ Fetch notifications for a specific user (executive)
 export const fetchNotificationsByUser = async ({ userId, userRole }) => {
   try {
-    const response = await apiService.post(`/notification/user`, {
+    const response = await apiService.post(`api/notification/user`, {
       userId,
       userRole,
     });
@@ -120,7 +120,7 @@ export const fetchNotificationsByUser = async ({ userId, userRole }) => {
 };
 export const createCopyNotification = async ({ userId, userRole, message }) => {
   try {
-    const response = await apiService.post("/notification/copy-event", {
+    const response = await apiService.post("api/notification/copy-event", {
       userId,
       message,
       userRole,
@@ -135,7 +135,7 @@ export const createCopyNotification = async ({ userId, userRole, message }) => {
 export const markNotificationAsRead = async (notificationId) => {
   try {
     const response = await apiService.put(
-      `/notification/mark-read/${notificationId}`
+      `api/notification/mark-read/${notificationId}`
     );
     return response.data;
   } catch (error) {
@@ -150,7 +150,7 @@ export const markNotificationAsRead = async (notificationId) => {
 // ✅ Delete a notification
 export const deleteNotificationById = async (notificationId) => {
   try {
-    const response = await apiService.delete(`/notification/${notificationId}`);
+    const response = await apiService.delete(`api/notification/${notificationId}`);
     return response.data;
   } catch (error) {
     console.error(`❌ Error deleting notification ${notificationId}:`, error);
@@ -161,7 +161,7 @@ export const deleteNotificationById = async (notificationId) => {
 // ✅ Function to fetch all executives
 export const fetchExecutivesAPI = async () => {
   try {
-    const response = await apiService.get("/executives");
+    const response = await apiService.get("api/executives");
     return response.data.executives;
   } catch (error) {
     console.error("❌ Error fetching executives:", error);
@@ -171,7 +171,7 @@ export const fetchExecutivesAPI = async () => {
 // ✅ Fetch executive details by ID
 export const fetchExecutiveInfo = async (executiveId) => {
   try {
-    const response = await apiService.get(`/executives/${executiveId}`);
+    const response = await apiService.get(`api/executives/${executiveId}`);
     return response;
   } catch (error) {
     console.error("API error in fetchExecutiveInfo:", error);
@@ -181,7 +181,7 @@ export const fetchExecutiveInfo = async (executiveId) => {
 // ✅ Fetch online executives
 export const fetchOnlineExecutives = async () => {
   try {
-    const response = await apiService.get("/online");
+    const response = await apiService.get("api/online");
     return response.data.onlineExecutives;
   } catch (error) {
     console.error("❌ Error fetching online executives:", error);
@@ -192,7 +192,7 @@ export const fetchOnlineExecutives = async () => {
 // ✅ Fetch admin profile
 export const fetchAdminProfile = async () => {
   try {
-    const response = await apiService.get("/admin/profile");
+    const response = await apiService.get("api/admin/profile");
     return response.data;
   } catch (error) {
     console.error("Error fetching admin profile:", error);
@@ -207,7 +207,7 @@ export const updateAdminProfile = async (profileData) => {
 
 // Change Password
 export const changeAdminPassword = async (currentPassword, newPassword) => {
-  const response = await apiService.post("/admin/change_pass", {
+  const response = await apiService.post("api/admin/change_pass", {
     currentPassword,
     newPassword,
   });
@@ -217,7 +217,7 @@ export const changeAdminPassword = async (currentPassword, newPassword) => {
 export const assignLeadAPI = async (leadId, executiveName) => {
   try {
     const response = await apiService.put(
-      `/client-leads/assign-executive`,
+      `api/client-leads/assign-executive`,
       {
         id: Number(leadId),       // ✅ Explicitly cast to integer
         executiveName,
@@ -235,7 +235,7 @@ export const assignLeadAPI = async (leadId, executiveName) => {
 // ✅ Fetch all executive activities
 export const fetchAllExecutivesActivities = async () => {
   try {
-    const response = await apiService.get("/executive-activities");
+    const response = await apiService.get("/api/executive-activities/all-activities");
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all executive activities:", error);
@@ -263,7 +263,7 @@ export const fetchExecutiveActivity = async (executiveId) => {
 export const fetchLeadSectionVisits = async (executiveId) => {
   try {
     const response = await apiService.get(
-      `/executive-activities/${executiveId}`
+      `api/executive-activities/${executiveId}`
     );
     return response.data.leadSectionVisits;
   } catch (error) {
@@ -278,7 +278,7 @@ export const fetchLeadSectionVisits = async (executiveId) => {
 // ✅ Create a new lead
 export const createLeadAPI = async (leadData) => {
   try {
-    const response = await apiService.post("/leads", leadData); 
+    const response = await apiService.post("api/leads", leadData); 
     return response.data; 
   } catch (error) {
     console.error(
@@ -292,7 +292,7 @@ export const createLeadAPI = async (leadData) => {
 // ✅ Function to fetch fresh leads for the executive
 export const fetchFreshLeads = async () => {
   try {
-    const response = await apiService.get("/freshleads"); 
+    const response = await apiService.get("/api/freshleads"); 
     return response.data; 
   } catch (error) {
     console.error("❌ Error fetching fresh leads:", error);
@@ -303,7 +303,7 @@ export const fetchFreshLeads = async () => {
 // ✅ Create a new fresh lead
 export const createFreshLead = async (leadData) => {
   try {
-    const response = await apiService.post("/freshleads", leadData);
+    const response = await apiService.post("api/freshleads", leadData);
     return response.data;
   } catch (error) {
     console.error(
@@ -316,7 +316,7 @@ export const createFreshLead = async (leadData) => {
 // ✅ Create a follow-up
 export const createFollowUp = async (followUpData) => {
   try {
-    const response = await apiService.post("/followup/create", followUpData);
+    const response = await apiService.post("api/followup/create", followUpData);
     return response.data;
   } catch (error) {
     console.error(
@@ -329,7 +329,7 @@ export const createFollowUp = async (followUpData) => {
 // ✅ Get all follow-ups
 export const fetchAllFollowUps = async () => {
   try {
-    const response = await apiService.get("/followup/");
+    const response = await apiService.get("api/followup/");
     return response.data;
   } catch (error) {
     console.error(
@@ -343,7 +343,7 @@ export const fetchAllFollowUps = async () => {
 export const updateFreshLeadFollowUp = async (followUpId, updatedData) => {
   try {
     const response = await apiService.put(
-      `/freshleads/update-followup/${followUpId}`,
+      `api/freshleads/update-followup/${followUpId}`,
       updatedData
     );
     return response.data;
@@ -359,7 +359,7 @@ export const updateFreshLeadFollowUp = async (followUpId, updatedData) => {
 export const updateFollowUp = async (followUpId, updatedData) => {
   try {
     const response = await apiService.put(
-      `/followup/${followUpId}`,
+      `api/followup/${followUpId}`,
       updatedData
     );
     return response.data;
@@ -375,7 +375,7 @@ export const updateFollowUp = async (followUpId, updatedData) => {
 export const createFollowUpHistory = async (historyData) => {
   try {
     const response = await apiService.post(
-      "/followuphistory/create",
+      "api/followuphistory/create",
       historyData
     );
     return response.data;
@@ -391,7 +391,7 @@ export const createFollowUpHistory = async (historyData) => {
 // ✅ Fetch all follow-up histories for an executive
 export const fetchFollowUpHistories = async () => {
   try {
-    const response = await apiService.get("/followuphistory/");
+    const response = await apiService.get("/api/followuphistory/");
     return response.data;
   } catch (error) {
     console.error(
@@ -404,7 +404,7 @@ export const fetchFollowUpHistories = async () => {
 
 export const fetchFollowUpHistoryByLeadId = async (freshLeadId) => {
   try {
-    const response = await apiService.get(`/followuphistory/${freshLeadId}`);
+    const response = await apiService.get(`api/followuphistory/${freshLeadId}`);
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching follow-up history:", error);
@@ -414,7 +414,7 @@ export const fetchFollowUpHistoryByLeadId = async (freshLeadId) => {
 // ✅ Fetch user settings (GET)
 export const fetchUserSettings = async () => {
   try {
-    const response = await apiService.get("/settings"); 
+    const response = await apiService.get("api/settings"); 
     return response.data; 
   } catch (error) {
     console.error("❌ Error fetching user settings:", error);
@@ -425,7 +425,7 @@ export const fetchUserSettings = async () => {
 // ✅ Update user settings (PUT)
 export const updateUserSettings = async (updatedSettings) => {
   try {
-    const response = await apiService.put("/settings", updatedSettings); 
+    const response = await apiService.put("api/settings", updatedSettings); 
     return response.data; 
   } catch (error) {
     console.error("❌ Error updating user settings:", error);
@@ -434,7 +434,7 @@ export const updateUserSettings = async (updatedSettings) => {
 };
 export const fetchMeetings = async () => {
   try {
-    const response = await apiService.get("/meetings/exec");
+    const response = await apiService.get("api/meetings/exec");
     return response.data.data; 
   } catch (error) {
     console.error("❌ Error fetching meetings:", error.response?.data || error.message);
@@ -443,12 +443,12 @@ export const fetchMeetings = async () => {
 };
 
 export const createMeetingAPI = (meetingData) =>
-  apiService.post("/meetings", meetingData).then(res => res.data);
+  apiService.post("api/meetings", meetingData).then(res => res.data);
 
 // ✅ Create a new converted client (using fresh_lead_id)
 export const createConvertedClient = async (convertedData) => {
   try {
-    const response = await apiService.post("/converted", convertedData);
+    const response = await apiService.post("api/converted", convertedData);
     return response.data;
   } catch (error) {
     console.error("❌ Error creating converted client:", error.response?.data || error.message);
@@ -460,7 +460,7 @@ export const createConvertedClient = async (convertedData) => {
 export const fetchConvertedClients = async (executiveId = null) => {
   try {
     // const endpoint = executiveId ? '/converted/exec' : '/converted';
-    const response = await apiService.get("/converted/exec", {
+    const response = await apiService.get("api/converted/exec", {
       headers: executiveId ? { 'x-executive-id': executiveId } : {},
     });
     return response.data;
@@ -473,7 +473,7 @@ export const fetchConvertedClients = async (executiveId = null) => {
 // ✅ Function to create a Close Lead (POST)
 export const createCloseLead = async (closeLeadData) => {
   try {
-    const response = await apiService.post("/close-leads/", {
+    const response = await apiService.post("api/close-leads/", {
       ...closeLeadData,
       clientLead: closeLeadData.clientLead, 
     });
@@ -487,7 +487,7 @@ export const createCloseLead = async (closeLeadData) => {
 // Function to fetch all close leads
 export const fetchAllCloseLeads = async () => {
   try {
-    const response = await apiService.get("/close-leads/"); // 👉 No params
+    const response = await apiService.get("api/close-leads/"); // 👉 No params
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all close leads:", error.response?.data || error.message);
@@ -497,7 +497,7 @@ export const fetchAllCloseLeads = async () => {
 
 export const adminMeeting = async () => {
   try {
-    const response = await apiService.get("/meetings");
+    const response = await apiService.get("api/meetings");
     if (response && response.data && response.data.meetings) {
       return response.data.meetings;  // Ensure we are returning meetings data
     } else {
@@ -513,7 +513,7 @@ export const adminMeeting = async () => {
 // ✅ Fetch executive activity summary for admin dashboard
 export const fetchAdminExecutiveDashboard = async () => {
   try {
-    const response = await apiService.get("/executive-activities/adminDashboard");
+    const response = await apiService.get("api/executive-activities/adminDashboard");
     return response.data.executives; 
   } catch (error) {
     console.error("❌ Error fetching admin executive dashboard data:", error);
@@ -534,8 +534,8 @@ export const fetchAdminExecutiveDashboard = async () => {
 export const fetchDealFunnelData = async (executiveId = null) => {
   try {
     const url = executiveId
-      ? `/client-leads/dealfunnel?executiveId=${executiveId}`
-      : "/client-leads/dealfunnel";
+      ? `api/client-leads/dealfunnel?executiveId=${executiveId}`
+      : "api/client-leads/dealfunnel";
     const response = await apiService.get(url);
     return response.data.data; // Returns { statusCounts, totalLeads }
   } catch (error) {
@@ -547,7 +547,7 @@ export const fetchDealFunnelData = async (executiveId = null) => {
 //Reassigned Leads 
 export const reassignLead = async (clientLeadId, newExecutive) => {
   try {
-    const response = await apiService.put(`leads/reassign`, {
+    const response = await apiService.put(`api/leads/reassign`, {
       clientLeadId: Number(clientLeadId),
       newExecutive,
     });
@@ -561,7 +561,7 @@ export const reassignLead = async (clientLeadId, newExecutive) => {
 // Function to fetch all opportunities
 export const fetchOpportunities = async () => {
   try {
-    const response = await apiService.get("/opportunities");
+    const response = await apiService.get("api/opportunities");
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching opportunities:", error);
@@ -582,7 +582,7 @@ export const verifyNumber = async (number) => {
 export const updateMeeting = async (meetingId, updatedData) => {
   try {
     const response = await apiService.put(
-      `/meetings/${meetingId}`,
+      `api/meetings/${meetingId}`,
       updatedData
     );
     return response.data;
@@ -598,7 +598,7 @@ export const updateMeeting = async (meetingId, updatedData) => {
 export const updateClientLead = async (clientLeadId, updateFields) => {
   try {
     const response = await apiService.patch(
-      `/client-leads/${clientLeadId}`,
+      `api/client-leads/${clientLeadId}`,
       updateFields
     );
     return response.data;
@@ -620,7 +620,7 @@ export const updateClientLeads = async (leadId, updatedData) => {
 
 export const deleteClientLead = async (leadId) => {
   try {
-    const response = await apiService.delete(`/client-leads/${leadId}`);
+    const response = await apiService.delete(`api/client-leads/${leadId}`);
     return response.data;
   } catch (error) {
     console.error(`❌ Error deleting lead ID ${leadId}:`, error);
@@ -631,7 +631,7 @@ export const deleteClientLead = async (leadId) => {
 export const sendEodReport = async ({  executiveId,executiveName,email,fields,startDate,endDate,time }) => {
   try {
     const response = await apiService.post(
-      "/eod-report/schedule",
+      "api/eod-report/schedule",
       JSON.stringify({ email, executiveName,executiveId,fields,startDate,endDate,time }),
       {
         headers: {
@@ -646,7 +646,7 @@ export const sendEodReport = async ({  executiveId,executiveName,email,fields,st
   }
 };
 export const createExecutiveAPI = async (executiveData) => {
-  const response = await apiService.post("/create-executive", executiveData);
+  const response = await apiService.post("api/create-executive", executiveData);
   return response.data;
 };
 
@@ -654,7 +654,7 @@ export const createExecutiveAPI = async (executiveData) => {
 // Add verifyExecutiveOTP function
 export const verifyExecutiveOTP = async (email, otp) => {
   try {
-    const response = await apiService.post("/verify-otp", { email, otp });
+    const response = await apiService.post("api/verify-otp", { email, otp });
     return response.data;
   } catch (error) {
     console.error("❌ Error verifying OTP:", error.response?.data || error.message);
@@ -665,7 +665,7 @@ export const verifyExecutiveOTP = async (email, otp) => {
 // ✅ Resend OTP for Executive
 export const resendExecutiveOtp = async (email) => {
   try {
-    const response = await apiService.post("/resend-otp", { email });
+    const response = await apiService.post("api/resend-otp", { email });
     return response.data;
   } catch (error) {
     console.error("❌ Error resending OTP:", error.response?.data || error.message);
@@ -674,7 +674,7 @@ export const resendExecutiveOtp = async (email) => {
 };
 export const fetchAllClientLeads = async () => {
   try {
-    const response = await apiService.get("/client-leads/getAllClientLeads");
+    const response = await apiService.get("api/client-leads/getAllClientLeads");
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all executive activities:", error);
@@ -683,7 +683,7 @@ export const fetchAllClientLeads = async () => {
 };
 export const createTeamLeadApi = async (adminData) => {
   try {
-    const response = await apiService.post("/create-tl",adminData);
+    const response = await apiService.post("api/create-tl",adminData);
     return response.data;
   } catch (error) {
     console.error("❌ Error ", error);
@@ -692,7 +692,7 @@ export const createTeamLeadApi = async (adminData) => {
 };
 export const createAdminApi = async (adminData) => {
   try {
-    const response = await apiService.post("/create-admin",adminData);
+    const response = await apiService.post("api/create-admin",adminData);
     return response.data;
   } catch (error) {
     console.error("❌ Error ", error);
@@ -701,7 +701,7 @@ export const createAdminApi = async (adminData) => {
 };
 export const createManagerApi = async (managerData) => {
   try {
-    const response = await apiService.post("manager/signup",managerData);
+    const response = await apiService.post("api/manager/signup",managerData);
     return response.data;
   } catch (error) {
     console.error("❌ Error ", error);
@@ -710,7 +710,7 @@ export const createManagerApi = async (managerData) => {
 };
 export const createHrApi = async (hrData) => {
   try {
-    const response = await apiService.post("hr/signup",hrData);
+    const response = await apiService.post("api/hr/signup",hrData);
     return response.data;
   } catch (error) {
     console.error("❌ Error ", error);
@@ -719,7 +719,7 @@ export const createHrApi = async (hrData) => {
 };
 export const getHr = async () => {
   try {
-    const response = await apiService.get("/hr/profile");
+    const response = await apiService.get("api/hr/profile");
     return response.data; // Assuming you're using only the leads array
   } catch (error) {
     console.error("❌ Error fetching follow-up leads:", error);
@@ -728,7 +728,7 @@ export const getHr = async () => {
 };
 export const getManager = async () => {
   try {
-    const response = await apiService.get("/manager/profile");
+    const response = await apiService.get("api/manager/profile");
     return response.data; // Assuming you're using only the leads array
   } catch (error) {
     console.error("❌ Error fetching follow-up leads:", error);
@@ -738,7 +738,7 @@ export const getManager = async () => {
 };
 export const updateUserProfile = async (userId, profileData) => {
   try {
-    const response = await apiService.put(`/user/profile/${userId}`, profileData);
+    const response = await apiService.put(`api/user/profile/${userId}`, profileData);
     return response.data;
   } catch (error) {
     console.error(`❌ Error updating user profile for user ${userId}:`, error.response?.data || error.message);
@@ -748,7 +748,7 @@ export const updateUserProfile = async (userId, profileData) => {
 
 export const updateManagerProfile = async (managerId, profileData) => {
   try {
-    const response = await apiService.put(`/manager/${managerId}`, profileData);
+    const response = await apiService.put(`api/manager/${managerId}`, profileData);
     return response.data.manager; // Return the updated manager object
   } catch (error) {
     console.error("❌ Error updating manager profile:", error.response?.data || error.message);
@@ -759,7 +759,7 @@ export const updateManagerProfile = async (managerId, profileData) => {
 
 export const fetchAllExecutiveActivitiesByDate = async () => {
   try {
-    const response = await apiService.get("/executive-activities/daily-activity");
+    const response = await apiService.get("api/executive-activities/daily-activity");
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all executive activities by date:", error);
@@ -768,7 +768,7 @@ export const fetchAllExecutiveActivitiesByDate = async () => {
 };
 export const getUserProfile = async () => {
   try {
-    const response = await apiService.get("/profile");
+    const response = await apiService.get("api/profile");
     return response.data; // Assuming you're using only the leads array
   } catch (error) {
     console.error("❌ Error fetching follow-up leads:", error);
@@ -778,7 +778,7 @@ export const getUserProfile = async () => {
 
 export const createEmailTemplate = async (templateData) => {
   try {
-    const response = await apiService.post("/template", templateData);
+    const response = await apiService.post("api/template", templateData);
     return response.data;
   } catch (error) {
     console.error("❌ Error creating email template:", error);
@@ -788,7 +788,7 @@ export const createEmailTemplate = async (templateData) => {
 // ✅ Fetch all email templates
 export const getAllEmailTemplates = async () => {
   try {
-    const response = await apiService.get("/template/");
+    const response = await apiService.get("api/template/");
     return response.data; // Expecting an array of templates
   } catch (error) {
     console.error("❌ Error fetching all email templates:", error);
@@ -799,7 +799,7 @@ export const getAllEmailTemplates = async () => {
 // ✅ Fetch a single template by ID
 export const getEmailTemplateById = async (templateId) => {
   try {
-    const response = await apiService.get(`/template/${templateId}`);
+    const response = await apiService.get(`api/template/${templateId}`);
     return response.data; // Expecting a single template object
   } catch (error) {
     console.error(`❌ Error fetching email template ID ${templateId}:`, error);
@@ -810,7 +810,7 @@ export const getEmailTemplateById = async (templateId) => {
 // ✅ Fetch weekly call durations for a given executive
 export const fetchExecutiveCallDurations = async (executiveId) => {
   try {
-    const response = await apiService.get(`/calldetails/call-duration-weekly/${executiveId}`);
+    const response = await apiService.get(`api/calldetails/call-duration-weekly/${executiveId}`);
     return response.data; 
   } catch (error) {
     console.error(`❌ Error fetching call durations for executive ${executiveId}:`, error);
@@ -819,7 +819,7 @@ export const fetchExecutiveCallDurations = async (executiveId) => {
 };
 export const markMultipleNotificationsAsRead = async (notificationIds) => {
   try {
-    const response = await apiService.post("/notification/mark-multiple-read", {
+    const response = await apiService.post("api/notification/mark-multiple-read", {
       notificationIds,
     });
     return response.data;
@@ -833,7 +833,7 @@ export const markMultipleNotificationsAsRead = async (notificationIds) => {
 // Function to create a new leave application
 export const createLeaveApplication = async (leaveData) => {
   try {
-    const response = await apiService.post("/leave/apply", leaveData);
+    const response = await apiService.post("api/leave/apply", leaveData);
     return response.data;
   } catch (error) {
     console.error("❌ Error creating leave application:", error.response?.data || error.message);
@@ -843,7 +843,7 @@ export const createLeaveApplication = async (leaveData) => {
 
 export const fetchLeaveApplications = async (employeeId = null) => {
   try {
-    const url = employeeId ? `/leave?employeeId=${employeeId}` : '/leave';
+    const url = employeeId ? `api/leave?employeeId=${employeeId}` : '/leave';
     const response = await apiService.get(url);
     return response.data;
   } catch (error) {
@@ -854,7 +854,7 @@ export const fetchLeaveApplications = async (employeeId = null) => {
 
 export const updateLeaveApplicationStatus = async (leaveId, status, hrComment = '') => {
   try {
-    const response = await apiService.patch('/leave/leave/status', {
+    const response = await apiService.patch('api/leave/leave/status', {
       leaveId,
       status,
       hrComment
@@ -867,24 +867,24 @@ export const updateLeaveApplicationStatus = async (leaveId, status, hrComment = 
 };
 
 export const fetchAllHRs = async () => {
-  const response = await apiService.get("/hr");
+  const response = await apiService.get("api/hr");
   return response.data.hrs || [];
 };
 
 export const fetchAllManagers = async () => {
-  const response = await apiService.get("/manager");
+  const response = await apiService.get("api/manager");
   return response.data.managers || [];
 };
 
 export const fetchAllProcessPersons = async () => {
-  const response = await apiService.get("/processperson");
+  const response = await apiService.get("api/processperson");
   return response.data.processPersons || [];
 };
 
 // ✅ Fetch all Team Leads (Admin-only)
 export const fetchAllTeamLeads = async () => {
   try {
-    const response = await apiService.get("/team-leads");
+    const response = await apiService.get("api/team-leads");
     return response.data.teamLeads || []; // Adjust key based on actual backend response
   } catch (error) {
     console.error("❌ Error fetching team leads:", error);
@@ -896,7 +896,7 @@ export const fetchAllTeamLeads = async () => {
 // ✅ Create a new Team (Manager only)
 export const createTeam = async (teamData) => {
   try {
-    const response = await apiService.post("/manager/teams", teamData);
+    const response = await apiService.post("api/manager/teams", teamData);
     return response.data;
   } catch (error) {
     console.error("❌ Error creating team:", error.response?.data || error.message);
@@ -906,7 +906,7 @@ export const createTeam = async (teamData) => {
 
 export const deleteTeamAPI = async (teamId) => {
   try {
-    const response = await apiService.delete(`/manager/${teamId}`);
+    const response = await apiService.delete(`api/manager/${teamId}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting team:", error);
@@ -916,7 +916,7 @@ export const deleteTeamAPI = async (teamId) => {
 
 export const getManagerTeamsById = async (managerId) => {
   try {
-    const response = await apiService.post("/manager/get-teams", {
+    const response = await apiService.post("api/manager/get-teams", {
       managerId,
     });
     return response.data.teams || [];
@@ -928,7 +928,7 @@ export const getManagerTeamsById = async (managerId) => {
 // ✅ Fetch all team members for a given team ID (Manager only)
 export const getTeamMembersById = async (teamId) => {
   try {
-    const response = await apiService.post("/manager/get-team", {
+    const response = await apiService.post("api/manager/get-team", {
       team_id: teamId,
     });
     return response.data; // array of team members
@@ -941,7 +941,7 @@ export const getTeamMembersById = async (teamId) => {
 // ✅ Get all teams (Admin or Manager)
 export const getAllTeams = async () => {
   try {
-    const response = await apiService.get("/manager/all-teams");
+    const response = await apiService.get("api/manager/all-teams");
     return response.data.teams; // returns the array of teams
   } catch (error) {
     console.error("❌ Error fetching all teams:", error.response?.data || error.message);
@@ -951,7 +951,7 @@ export const getAllTeams = async () => {
 // ✅ Add an executive to a team (Manager only)
 export const addExecutiveToTeam = async ({ teamId, executiveId, managerId }) => {
   try {
-    const response = await apiService.post("/manager/addExecutive", {
+    const response = await apiService.post("api/manager/addExecutive", {
       team_id: teamId,
       user_id: executiveId,
       managerId: managerId,
@@ -975,7 +975,7 @@ export const addExecutiveToTeam = async ({ teamId, executiveId, managerId }) => 
 
 export const getAllTeamMembers = async (team_id) => {
   try {
-    const response = await apiService.post("/manager/get-team", { team_id });
+    const response = await apiService.post("api/manager/get-team", { team_id });
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching team members:", error);
@@ -984,7 +984,7 @@ export const getAllTeamMembers = async (team_id) => {
 };
 export const fetchMeetingsByExecutive = async (executiveName) => {
   try {
-    const response = await apiService.get(`/meetings/admin/${encodeURIComponent(executiveName)}`);
+    const response = await apiService.get(`api/meetings/admin/${encodeURIComponent(executiveName)}`);
     return response.data.data;
   } catch (error) {
     console.error("❌ Error fetching meetings by executive:", error);
@@ -994,7 +994,7 @@ export const fetchMeetingsByExecutive = async (executiveName) => {
 // Get HR profile by ID
 export const getHrById = async (hrId) => {
   try {
-    const response = await apiService.get(`/hr/${hrId}`);
+    const response = await apiService.get(`api/hr/${hrId}`);
     return response.data.hr;
   } catch (error) {
     console.error("❌ Error fetching HR by ID:", error);
@@ -1005,7 +1005,7 @@ export const getHrById = async (hrId) => {
 // Update HR profile by ID
 export const updateHrProfile = async (hrId, updateData) => {
   try {
-    const response = await apiService.put(`/hr/${hrId}`, updateData);
+    const response = await apiService.put(`api/hr/${hrId}`, updateData);
     return response.data.hr;
   } catch (error) {
     console.error("❌ Error updating HR profile:", error);
@@ -1015,17 +1015,25 @@ export const updateHrProfile = async (hrId, updateData) => {
 
 // ---- CONVERTED ----
 export const fetchConvertedByExecutive = async (execName) => {
-  const res = await apiService.get(`/converted/admin/${encodeURIComponent(execName.trim())}`);
-  return res.data.data;
+try {
+    const res = await apiService.get(`api/converted/exec/${encodeURIComponent(execName.trim())}`);
+    return res.data.data || []; 
+  } catch (error) {
+    if (error.response?.status === 404 && error.response?.data?.message?.includes('No converted clients')) {
+      return [];
+    }
+    console.error(`❌ Error fetching converted clients for ${execName}:`, error.response?.data || error.message);
+    throw error;  // Propagate for upstream handling
+  }
 };
 
 export const fetchClosedByExecutive = async (execName) => {
-  const res = await apiService.get(`/close-leads/by-executive/${encodeURIComponent(execName)}`);
+  const res = await apiService.get(`api/close-leads/by-executive/${encodeURIComponent(execName)}`);
   return res.data.data;
 };
 
 export const fetchFollowUpsByExecutive = async (execName) => {
-  const res = await apiService.get(`/followup/by-executive/${encodeURIComponent(execName)}`);
+  const res = await apiService.get(`api/followup/by-executive/${encodeURIComponent(execName)}`);
   return res.data.data;
 };
 export const fetchCallTimeByRange = async (executiveIds, startDate, endDate) => {
@@ -1034,7 +1042,7 @@ export const fetchCallTimeByRange = async (executiveIds, startDate, endDate) => 
 
     for (const id of executiveIds) {
       const response = await apiService.get(
-        `/calldetails/call-time/${id}?startDate=${startDate}&endDate=${endDate}`
+        `api/calldetails/call-time/${id}?startDate=${startDate}&endDate=${endDate}`
       );
       results.push({
         executiveId: id,
@@ -1054,7 +1062,7 @@ export const fetchExecutiveSummaryByRange = async (
   endDate
 ) => {
   try {
-    const url = `/executive-activities/summary/${executiveId}?startDate=${startDate}&endDate=${endDate}`;
+    const url = `api/executive-activities/summary/${executiveId}?startDate=${startDate}&endDate=${endDate}`;
     const res = await apiService.get(url);
     return res.data; // [{ activityDate, workTime, breakTime, ... }]
   } catch (err) {
@@ -1065,7 +1073,7 @@ export const fetchExecutiveSummaryByRange = async (
 // ✅ Fetch organization hierarchy
 export const fetchOrganizationHierarchy = async () => {
   try {
-    const response = await apiService.get("/organization/graph");
+    const response = await apiService.get("api/organization/graph");
     return response.data.hierarchy; // Return only the hierarchy array
   } catch (error) {
     console.error("❌ Error fetching organization hierarchy:", error.response?.data || error.message);
@@ -1075,7 +1083,7 @@ export const fetchOrganizationHierarchy = async () => {
 // ✅ Schedule a follow-up notification
 export const scheduleFollowUpNotification = async ({ userId, clientName, date, time, targetRole = "executive" }) => {
   try {
-    const response = await apiService.post("/schedule/notification", {
+    const response = await apiService.post("api/schedule/notification", {
       userId,
       clientName,
       date,
@@ -1090,7 +1098,7 @@ export const scheduleFollowUpNotification = async ({ userId, clientName, date, t
 };
 export const changeHrPassword = async (currentPassword, newPassword) => {
   try {
-    const response = await apiService.post("/hr/change-password", {
+    const response = await apiService.post("api/hr/change-password", {
       currentPassword,
       newPassword,
     });
@@ -1103,7 +1111,7 @@ export const changeHrPassword = async (currentPassword, newPassword) => {
 
 export const changeManagerPassword = async (currentPassword, newPassword) => {
   try {
-    const response = await apiService.post("/manager/change-password", {
+    const response = await apiService.post("api/manager/change-password", {
       currentPassword,
       newPassword,
     });

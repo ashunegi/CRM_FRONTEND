@@ -6,6 +6,7 @@ import {
   resumeCompanyById,
   setCompanyExpiry
 } from "../services/companyService";
+import { useAuth } from "../context/AuthContext";
 
 // 1. Create Context
 const CompanyContext = createContext();
@@ -18,9 +19,12 @@ export const CompanyProvider = ({ children }) => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const { user } = useAuth();
 
     const fetchCompanies = useCallback(async () => {
+    if (!user || (user.role !== 'Admin' && user.role !== 'Master')) {
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -32,7 +36,7 @@ export const CompanyProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []); // no dependencies — safe to memoize once
+  }, [user]); 
 
   // ✅ Call on mount
   useEffect(() => {

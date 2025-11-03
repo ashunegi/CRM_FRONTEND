@@ -161,25 +161,25 @@ useEffect(() => {
   const cards = [
     {
       title: "Fresh Leads",
-      value: <div>{freshleadCounts}</div>,
+      value: freshleadCounts,
       route: "/executive/freshlead",
       icon: <FaUserPlus />,
     },
     {
       title: "Follow-ups",
-      value: <div>{followupCounts}</div>,
+      value: followupCounts,
       route: "/executive/follow-up",
       icon: <FaClipboardCheck />,
     },
     {
       title: "Converted Clients",
-      value: <div>{convertedCounts}</div>,
+      value: convertedCounts,
       route: "/executive/customer",
       icon: <FaUsers />,
     },
     {
       title: "Scheduled Meetings",
-      value: <div>{meetingsCount}</div>,
+      value: meetingsCount,
       route: "/executive/schedule",
       icon: <FaUsers />,
       missedCount: missedMeetingsCount,
@@ -215,4 +215,4 @@ useEffect(() => {
   );
 };
 
-export default ReportCard; 
+export default ReportCard;

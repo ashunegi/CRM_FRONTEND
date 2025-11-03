@@ -182,9 +182,15 @@ const getProfile = useCallback(async () => {
 }, []);
 
 
- useEffect(() => {
-    getProfile();
-  }, [getProfile]);
+useEffect(() => {
+const token = localStorage.getItem("token");
+if (token) {
+const userType = localStorage.getItem("userType");
+if (userType === "processperson") {
+getProfile();
+}
+}
+}, [getProfile]);
 
 
   const handleProfileSettings = async (data) => {

@@ -14,7 +14,7 @@ import ChatBotRoutes from "./routes/ChatBotRoutes";
 import LeadAssignRoutes from "./routes/LeadAssignRoute";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "./features/admin/ThemeContext";
-import { useLocation } from "react-router-dom"; // ✅ at the top of App.js
+import { useLocation } from "react-router-dom"; 
 import AdminPanelRoutes from "./routes/MonitoringRoutes";
 import MasterRoutes from "./routes/MasterRoutes";
 import ProcessRoutes from "./routes/ProcessRoutes";

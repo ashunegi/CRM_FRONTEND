@@ -152,6 +152,11 @@ const Verify = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const handleContinue = () => {
+    localStorage.removeItem("executiveData");
+    navigate("/admin");
+  };
+
   if (success) {
     return (
       <div className="verify-container">
@@ -161,7 +166,7 @@ const Verify = () => {
           <p className="success-message">
             Your phone number has been verified successfully.
           </p>
-          <button className="continue-button">
+          <button className="continue-button" onClick={handleContinue}>
             Continue
           </button>
         </div>

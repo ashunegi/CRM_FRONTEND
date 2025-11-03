@@ -458,19 +458,16 @@ const loadFollowUpHistories = useCallback(async (freshLeadId) => {
       } else {
         return; // Do nothing for other types; handled by specific buttons
       }
-
-      await fetchFreshLeadsAPI();
-      await fetchMeetings();
-      await refreshMeetings();
-      loadFollowUpHistories(freshLeadId);
-      setTimeout(() => navigate("/executive/follow-up"), 1000);
-    } catch (err) {
-      console.error("Follow-up Action Error:", err);
-      Swal.fire({
-        icon: "error",
-        title: "Failed",
-        text: "Something went wrong. Please try again.",
-      });
+    await fetchFreshLeadsAPI();
+    loadFollowUpHistories(freshLeadId);
+    setTimeout(() => navigate("/executive/follow-up"), 1000);
+  } catch (err) {
+    console.error("Follow-up Action Error:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Failed",
+      text: "Something went wrong. Please try again.",
+    });
     }
   };
 

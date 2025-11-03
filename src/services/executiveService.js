@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const COMPANY_ID = process.env.REACT_APP_COMPANY_ID;
+const API_BASE_URL = "http://localhost:5000";
+const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
 
 // Get token from localStorage
 const getToken = () => localStorage.getItem('token');
@@ -25,7 +25,7 @@ export const recordStartWork = async () => {
     const payload = { ExecutiveId, executiveName };
 
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/startWork`,
+      `${API_BASE_URL}/api/executive-activities/startWork`,
       payload,
       { headers: getHeaders() }
     );
@@ -49,7 +49,7 @@ export const recordStopWork = async () => {
     const payload = { ExecutiveId, executiveName };
 
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/stopWork`,
+      `${API_BASE_URL}/api/executive-activities/stopWork`,
       payload,
       { headers: getHeaders() }
     );
@@ -71,7 +71,7 @@ export const recordStartBreak = async () => {
     const executiveName = userData?.username;
 
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/startBreak`,
+      `${API_BASE_URL}/api/executive-activities/startBreak`,
       { ExecutiveId, executiveName },
       { headers: getHeaders() }
     );
@@ -93,7 +93,7 @@ export const recordStopBreak = async () => {
     const executiveName = userData?.username;
 
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/stopBreak`,
+      `${API_BASE_URL}/api/executive-activities/stopBreak`,
       { ExecutiveId, executiveName },
       { headers: getHeaders() }
     );
@@ -112,7 +112,7 @@ export const startCall = async (leadId) => {
   try {
     const userData = JSON.parse(localStorage.getItem("user") || '{}');
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/updateCallTime`,
+      `${API_BASE_URL}/api/executive-activities/updateCallTime`,
       {
         ExecutiveId: userData.id,
         executiveName: userData.username,
@@ -136,7 +136,7 @@ export const endCall = async (leadId) => {
   try {
     const userData = JSON.parse(localStorage.getItem("user") || '{}');
     const response = await axios.post(
-      `${API_BASE_URL}/executive-activities/updateCallTime`,
+      `${API_BASE_URL}/api/executive-activities/updateCallTime`,
       {
         ExecutiveId: userData.id,
         executiveName: userData.username,
@@ -161,7 +161,7 @@ export const getActivityStatus = async () => {
     const userData = JSON.parse(localStorage.getItem("user") || '{}');
 
     const response = await axios.get(
-      `${API_BASE_URL}/executive-activities/status/${userData.id}`,
+      `${API_BASE_URL}/api/executive-activities/${userData.id}`,
       { headers: getHeaders() }
     );
     return response.data;
@@ -177,7 +177,7 @@ export const getActivityStatus = async () => {
 export const leadtrackVisit = async (executiveId) => {
   try {
   await axios.post(
-  `${API_BASE_URL}/executive-activities/trackLeadVisit`,
+  `${API_BASE_URL}/api/executive-activities/trackLeadVisit`,
   { ExecutiveId: executiveId },
   { headers: getHeaders() }
 );
@@ -200,7 +200,7 @@ export const sendEmail = async ({
 }) => {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}/template/send-email`,
+      `${API_BASE_URL}/api/template/send-email`,
       {
         templateId,
         executiveName,
@@ -223,7 +223,7 @@ export const sendEmail = async ({
 export const getAttendance = async (startDate, endDate) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/executive-activities/attendance`,
+      `${API_BASE_URL}/api/executive-activities/attendance`,
       {
         headers: getHeaders(),
         params: {

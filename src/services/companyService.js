@@ -1,8 +1,8 @@
 import axios from "axios";
-
+const APP_API_BASE_URL ="http://localhost:5000"
 // Create an Axios instance specific to company service
 const companyApi = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL, // ⚠️ Replace with env var in production
+  baseURL: APP_API_BASE_URL, // ⚠️ Replace with env var in production
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,7 +26,7 @@ companyApi.interceptors.request.use(
 
 export const createCompany = async (data) => {
   try {
-    const response = await companyApi.post("/company/create-company", data);
+    const response = await companyApi.post("/api/company/create-company", data);
     return response.data;
   } catch (error) {
     throw error.response?.data || { error: "Company creation failed" };
@@ -36,7 +36,7 @@ export const createCompany = async (data) => {
 
 export const getCompaniesForMaster = async () => {
   try {
-    const response = await companyApi.get("/company/master/companies");
+    const response = await companyApi.get("/api/company/master/companies");
     return response.data;
   } catch (error) {
     throw error.response?.data || { error: "Failed to fetch companies" };

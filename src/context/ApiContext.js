@@ -1555,16 +1555,15 @@ const [isUserProfileUpdating, setUserProfileUpdating] = useState(false);
     }
   
     fetchExecutiveData();
-    fetchOnlineExecutivesData();
     fetchLeadSectionVisitsAPI();
     fetchExecutives();
     fetchAllCloseLeadsAPI();
     getExecutiveActivity();
     fetchFollowUpHistoriesAPI();
   
-  if (currentUser?.id) {
-      fetchNotifications(currentUser.id);
-    }
+ if (currentUser?.id && currentUser?.role) {  // Added role check for safety
+    fetchNotifications({ userId: currentUser.id, userRole: currentUser.role });
+  }
   }, [fetchNotifications,
   fetchExecutives,
   fetchFollowUpHistoriesAPI,

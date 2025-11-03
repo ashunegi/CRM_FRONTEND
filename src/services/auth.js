@@ -1,20 +1,20 @@
 import apiService from "./apiService";
 import { Navigate } from "react-router-dom";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const COMPANY_ID = process.env.REACT_APP_COMPANY_ID; 
+const API_BASE_URL = "http://localhost:5000";
+
 
 // Shared headers
 const BASE_HEADERS = {
   "Content-Type": "application/json",
-  "x-company-id": COMPANY_ID,
+  "x-company-id": "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9",
 };
 /*------------------------------LOGIN (fetch)---------------------------*/
-export const loginUser = async (email, password,role) => {
-  const res = await fetch(`${API_BASE_URL}/login`, {
+export const loginUser = async (email, password, role) => {
+  const res = await fetch(`${API_BASE_URL}/api/login`, {  // Add /api
     method: "POST",
     headers: BASE_HEADERS,
-    body: JSON.stringify({ email, password ,role}),
+    body: JSON.stringify({ email, password, role }),  // Keep role if needed for future, but backend ignores it
   });
 
   if (!res.ok) {
@@ -142,7 +142,7 @@ export const logoutUser = async (executiveName) => {
     const token = localStorage.getItem("token");
 
     const response = await apiService.post(
-      "/logout",
+      "api/logout",
       {
         executiveName, // Now included in the request body
       },
