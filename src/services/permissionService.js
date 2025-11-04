@@ -13,34 +13,34 @@ const getHeaders = () => ({
 
 export const permissionService = {
   async fetchUsers() {
-    const res = await axios.get(`${BASE_URL}/api/role-permissions/get-managers-users`, { headers: getHeaders() });
+    const res = await axios.get(`${API_BASE_URL}/api/role-permissions/get-managers-users`, { headers: getHeaders() });
     return res.data;
   },
 
   async createPermission(payload) {
-    const res = await axios.post(`${BASE_URL}/api/role-permissions/create`, payload, { headers: getHeaders() });
+    const res = await axios.post(`${API_BASE_URL}/api/role-permissions/create`, payload, { headers: getHeaders() });
     return res.data;
   },
 
   async fetchAllRolePermissions() {
-    const res = await axios.get(`${BASE_URL}/api/role-permissions/get-permissions`, { headers: getHeaders() });
+    const res = await axios.get(`${API_BASE_URL}/api/role-permissions/get-permissions`, { headers: getHeaders() });
     return res.data;
   },
 
   async fetchSinglePermission(id) {
-    const res = await axios.get(`${BASE_URL}/api/role-permissions/permission/${id}`, { headers: getHeaders() });
+    const res = await axios.get(`${API_BASE_URL}/api/role-permissions/permission/${id}`, { headers: getHeaders() });
     return res.data;
   },
 
   async togglePermission(permissionId, permissionKey) {
-    const res = await axios.patch(`${BASE_URL}/api/role-permissions/${permissionId}/toggle`, { permissionKey }, {
+    const res = await axios.patch(`${API_BASE_URL}/api/role-permissions/${permissionId}/toggle`, { permissionKey }, {
       headers: getHeaders(),
     });
     return res.data;
   },
 
   async fetchPermissionsForUser(userId, role) {
-    const res = await axios.get(`${BASE_URL}/api/role-permissions/${role}/${userId}`, { headers: getHeaders() });
+    const res = await axios.get(`${API_BASE_URL}/api/role-permissions/${role}/${userId}`, { headers: getHeaders() });
     return res.data;
   },
 };
