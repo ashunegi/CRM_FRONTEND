@@ -1,6 +1,7 @@
 import apiService from "./apiService";
 
-const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
+const COMPANY_ID =process.env.REACT_APP_COMPANY_ID || "41e7691e-d9ca-436f-83b3-de5f4d1b503b";
+
 export const uploadFile = async (input) => {
   const formData = new FormData();
 

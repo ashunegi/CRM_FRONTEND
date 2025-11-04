@@ -8,8 +8,9 @@ const API_BASE_URL =
 // Shared headers
 const BASE_HEADERS = {
   "Content-Type": "application/json",
-  "x-company-id": "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9",
+  "x-company-id": process.env.REACT_APP_COMPANY_ID || "41e7691e-d9ca-436f-83b3-de5f4d1b503b",
 };
+
 /*------------------------------LOGIN (fetch)---------------------------*/
 export const loginUser = async (email, password, role) => {
   const res = await fetch(`${API_BASE_URL}/login`, {  // Add /api

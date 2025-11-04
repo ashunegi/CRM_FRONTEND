@@ -1,8 +1,10 @@
 import axios from "axios";
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-const COMPANY_ID = "d8487c4e-7e27-4160-8fea-8ef6f7ad90e9";
 
+const COMPANY_ID =
+  process.env.REACT_APP_COMPANY_ID || "41e7691e-d9ca-436f-83b3-de5f4d1b503b";
+  
 const apiService = axios.create({
   baseURL: API_BASE_URL,
   headers: {
