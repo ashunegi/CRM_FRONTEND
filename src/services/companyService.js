@@ -1,8 +1,9 @@
 import axios from "axios";
-const APP_API_BASE_URL ="http://localhost:5000"
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 // Create an Axios instance specific to company service
 const companyApi = axios.create({
-  baseURL: APP_API_BASE_URL, // ⚠️ Replace with env var in production
+  baseURL: API_BASE_URL, // ⚠️ Replace with env var in production
   headers: {
     "Content-Type": "application/json",
   },
