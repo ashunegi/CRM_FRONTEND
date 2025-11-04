@@ -236,7 +236,7 @@ export const assignLeadAPI = async (leadId, executiveName) => {
 // ✅ Fetch all executive activities
 export const fetchAllExecutivesActivities = async () => {
   try {
-    const response = await apiService.get("/api/executive-activities/all-activities");
+    const response = await apiService.get("/executive-activities/all-activities");
     return response.data;
   } catch (error) {
     console.error("❌ Error fetching all executive activities:", error);
@@ -293,7 +293,7 @@ export const createLeadAPI = async (leadData) => {
 // ✅ Function to fetch fresh leads for the executive
 export const fetchFreshLeads = async () => {
   try {
-    const response = await apiService.get("/api/freshleads"); 
+    const response = await apiService.get("/freshleads"); 
     return response.data; 
   } catch (error) {
     console.error("❌ Error fetching fresh leads:", error);
@@ -392,7 +392,7 @@ export const createFollowUpHistory = async (historyData) => {
 // ✅ Fetch all follow-up histories for an executive
 export const fetchFollowUpHistories = async () => {
   try {
-    const response = await apiService.get("/api/followuphistory/");
+    const response = await apiService.get("/followuphistory/");
     return response.data;
   } catch (error) {
     console.error(

@@ -27,7 +27,7 @@ companyApi.interceptors.request.use(
 
 export const createCompany = async (data) => {
   try {
-    const response = await companyApi.post("/api/company/create-company", data);
+    const response = await companyApi.post("/company/create-company", data);
     return response.data;
   } catch (error) {
     throw error.response?.data || { error: "Company creation failed" };
@@ -37,7 +37,7 @@ export const createCompany = async (data) => {
 
 export const getCompaniesForMaster = async () => {
   try {
-    const response = await companyApi.get("/api/company/master/companies");
+    const response = await companyApi.get("/company/master/companies");
     return response.data;
   } catch (error) {
     throw error.response?.data || { error: "Failed to fetch companies" };

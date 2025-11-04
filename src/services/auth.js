@@ -12,7 +12,7 @@ const BASE_HEADERS = {
 };
 /*------------------------------LOGIN (fetch)---------------------------*/
 export const loginUser = async (email, password, role) => {
-  const res = await fetch(`${API_BASE_URL}/api/login`, {  // Add /api
+  const res = await fetch(`${API_BASE_URL}/login`, {  // Add /api
     method: "POST",
     headers: BASE_HEADERS,
     body: JSON.stringify({ email, password, role }),  // Keep role if needed for future, but backend ignores it

@@ -22,7 +22,7 @@ const getHeaders = () => {
 
 // ✅ POST - Create
 export const createCustomerStages = async (stageData) => {
-  const res = await fetch(`${API_BASE_URL}/api/customer-stages/stages`, {
+  const res = await fetch(`${API_BASE_URL}/customer-stages/stages`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -36,7 +36,7 @@ export const createCustomerStages = async (stageData) => {
 
 // ✅ GET - Fetch
 export const getCustomerStages = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/customer-stages/stages`, {
+  const res = await fetch(`${API_BASE_URL}/customer-stages/stages`, {
     method: "GET",
     headers: getHeaders(),
     credentials: "include",
@@ -49,7 +49,7 @@ export const getCustomerStages = async () => {
 
 // ✅ PUT - Update
 export const updateCustomerStages = async (stageData) => {
-  const res = await fetch(`${API_BASE_URL}/api/customer-stages/stages`, {
+  const res = await fetch(`${API_BASE_URL}/customer-stages/stages`, {
     method: "PUT",
     headers: getHeaders(),
     credentials: "include",
@@ -70,7 +70,7 @@ if (!token) {
     const { phone, dob, nationality, passportNumber } = payload;
 
     const response = await axios.post(
-      `${API_BASE_URL}/api/customer-details`,
+      `${API_BASE_URL}/customer-details`,
       { phone, dob, nationality, passportNumber },
       {
         headers: {
@@ -91,7 +91,7 @@ if (!token) {
 export const getprofileSettings = async () => {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${API_BASE_URL}/api/customer-details`, {
+  const res = await fetch(`${API_BASE_URL}/customer-details`, {
     method: "GET",
     headers: {
       ...BASE_HEADERS,
@@ -116,7 +116,7 @@ export const updateProfileSettings = async (payload) => {
     const { phone, dob, nationality, passportNumber } = payload;
 
     const response = await axios.put(
-      `${API_BASE_URL}/api/customer-details`,
+      `${API_BASE_URL}/customer-details`,
       { phone, dob, nationality, passportNumber },
       {
         headers: {
@@ -138,7 +138,7 @@ export const getAllCustomers = async () => {
     throw new Error("Token not found in localStorage");
   }
 
-  const res = await fetch(`${API_BASE_URL}/api/customer/getAllCustomer`, {
+  const res = await fetch(`${API_BASE_URL}/customer/getAllCustomer`, {
     method: "GET",
     headers: {
       ...BASE_HEADERS,
@@ -152,7 +152,7 @@ export const getAllCustomers = async () => {
   return data.customers;
 };
 export const importConvertedClients = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/processperson/import-converted-customer`, {
+  const res = await fetch(`${API_BASE_URL}/processperson/import-converted-customer`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -165,7 +165,7 @@ export const importConvertedClients = async () => {
 
 export const getCustomerStagesById = async (customerId) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/customer-stages/${customerId}`, {
+    const res = await fetch(`${API_BASE_URL}/customer-stages/${customerId}`, {
       method: "GET",
       headers: getHeaders(),
       credentials: "include",
@@ -182,7 +182,7 @@ export const getCustomerStagesById = async (customerId) => {
   }
 };
       export const  uploadCustomerDocuments= async (formData) => {
-      const res = await fetch(`${API_BASE_URL}/api/customer/document/upload`,{
+      const res = await fetch(`${API_BASE_URL}/customer/document/upload`,{
       method: "POST",
       headers: getHeaders(),
       credentials: "include",
@@ -194,7 +194,7 @@ export const getCustomerStagesById = async (customerId) => {
       };
 
 export const getCustomerDocuments = async (userType,id) => {
-const res = await fetch(`${API_BASE_URL}/api/customer/document/${userType}/${id}`, {
+const res = await fetch(`${API_BASE_URL}/customer/document/${userType}/${id}`, {
 method: "GET",
 headers: getHeaders(),
 credentials: "include",
@@ -207,7 +207,7 @@ return data;
 
 export const getProcessSettings = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/processperson/process/settings`, {
+    const res = await fetch(`${API_BASE_URL}/processperson/process/settings`, {
       method: "GET",
       headers: getHeaders(),
       credentials: "include",
@@ -226,7 +226,7 @@ export const getProcessSettings = async () => {
 };
 export const createProcessFollowUpApi = async (payload) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/process-history/process-followup/create`,{
+    const response = await fetch(`${API_BASE_URL}/process-history/process-followup/create`,{
       method: "POST",
       headers: getHeaders(),
       credentials: "include",
@@ -238,7 +238,7 @@ export const createProcessFollowUpApi = async (payload) => {
         }
       };
 export const addStageCommentAndNotify = async ( customerId, stageNumber, newComment ) => {
-  const response = await fetch(`${API_BASE_URL}/api/customer-stages/stage-comment/notify`, {
+  const response = await fetch(`${API_BASE_URL}/customer-stages/stage-comment/notify`, {
     method: "POST",
    headers: getHeaders(),
     body: JSON.stringify({ customerId, stageNumber, newComment }),
@@ -253,7 +253,7 @@ export const addStageCommentAndNotify = async ( customerId, stageNumber, newComm
   return data;
 };
 export const getProcessFollowupApi = async (id) => {
-const res = await fetch(`${API_BASE_URL}/api/process-history/process-followup/${id}`, {
+const res = await fetch(`${API_BASE_URL}/process-history/process-followup/${id}`, {
 method: "GET",
 headers: getHeaders(),
 credentials: "include",
@@ -264,7 +264,7 @@ if (!res.ok) throw new Error(data.error || "Failed to fetch customer stages");
 return data;
 };
 export const createFinalStageApi = async (payload) => {
-  const res = await fetch(`${API_BASE_URL}/api/processed/create`, {
+  const res = await fetch(`${API_BASE_URL}/processed/create`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -276,7 +276,7 @@ export const createFinalStageApi = async (payload) => {
   return data;
 };
 export const moveToRejectedApi = async (payload) => {
-  const res = await fetch(`${API_BASE_URL}/api/process-history/process-followup/reject`, {
+  const res = await fetch(`${API_BASE_URL}/process-history/process-followup/reject`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -289,7 +289,7 @@ export const moveToRejectedApi = async (payload) => {
 };
 
 export const createCloseLeadApi = async (freshLeadId) => {
-  const res = await fetch(`${API_BASE_URL}/api/close-leads`, {
+  const res = await fetch(`${API_BASE_URL}/close-leads`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -305,7 +305,7 @@ export const createCloseLeadApi = async (freshLeadId) => {
 
 
 export const getAllProcessFollowupsApi = async (id) => {
-const res = await fetch(`${API_BASE_URL}/api/process-history/process-followup`, {
+const res = await fetch(`${API_BASE_URL}/process-history/process-followup`, {
 method: "GET",
 headers: getHeaders(),
 credentials: "include",
@@ -316,7 +316,7 @@ if (!res.ok) throw new Error(data.error || "Failed to fetch");
 return data;
 };
 export const getProcessFollowupHistoryApi = async (id) => {
-const res = await fetch(`${API_BASE_URL}/api/process-history/process-followup/${id}`, {
+const res = await fetch(`${API_BASE_URL}/process-history/process-followup/${id}`, {
 method: "GET",
 headers: getHeaders(),
 credentials: "include",
@@ -327,7 +327,7 @@ if (!res.ok) throw new Error(data.error || "Failed to fetch customer stages");
 return data;
 };
 export const getProcessHistoryApi = async (id) => {
-const res = await fetch(`${API_BASE_URL}/api/process-history/process-followup/${id}`, {
+const res = await fetch(`${API_BASE_URL}/process-history/process-followup/${id}`, {
 method: "GET",  
 headers: getHeaders(),
 credentials: "include",
@@ -338,7 +338,7 @@ if (!res.ok) throw new Error(data.error || "Failed to fetch customer stages");
 return data;
 };
 export const createMeetings = async (meetingData) => {
-  const res = await fetch(`${API_BASE_URL}/api/process-history/process-followp/create-meeting`, {
+  const res = await fetch(`${API_BASE_URL}/process-history/process-followp/create-meeting`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -353,7 +353,7 @@ export const startWorkApi = async (process_person_id) => {
   if (!process_person_id) {
     throw new Error("process_person_id is required");
   }
-  const response = await fetch(`${API_BASE_URL}/api/process-person-activities/startWork`, {
+  const response = await fetch(`${API_BASE_URL}/process-person-activities/startWork`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -369,7 +369,7 @@ export const startBreakApi = async (process_person_id) => {
   if (!process_person_id) {
     throw new Error("process_person_id is required");
   }
-  const response = await fetch(`${API_BASE_URL}/api/process-person-activities/startBreak`, {
+  const response = await fetch(`${API_BASE_URL}/process-person-activities/startBreak`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -385,7 +385,7 @@ export const stopBreakApi = async (process_person_id) => {
   if (!process_person_id) {
     throw new Error("process_person_id is required");
   }
-  const response = await fetch(`${API_BASE_URL}/api/process-person-activities/stopBreak`, {
+  const response = await fetch(`${API_BASE_URL}/process-person-activities/stopBreak`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -399,7 +399,7 @@ export const stopBreakApi = async (process_person_id) => {
 };
 export const stopWorkApi = async (process_person_id) => {
 
-  const response = await fetch(`${API_BASE_URL}/api/process-person-activities/stopWork`, {
+  const response = await fetch(`${API_BASE_URL}/process-person-activities/stopWork`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -411,7 +411,7 @@ export const stopWorkApi = async (process_person_id) => {
 };
 export const createCustomerStagesApi = async (customerId, stageNumber, newComment) => {
 
-  const response = await fetch(`${API_BASE_URL}/api/customer-stages/stage-comment/add`, {
+  const response = await fetch(`${API_BASE_URL}/customer-stages/stage-comment/add`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -422,7 +422,7 @@ export const createCustomerStagesApi = async (customerId, stageNumber, newCommen
   return data;// Contains { message, activity }
 };
 export const getComments = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/customer-stages/stage-comment/get`, {
+  const res = await fetch(`${API_BASE_URL}/customer-stages/stage-comment/get`, {
     method: "GET",
     headers: getHeaders(),
     credentials: "include",
@@ -433,7 +433,7 @@ export const getComments = async () => {
   return data;
 };
 export const getFinalStage = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/processed/`, {
+  const res = await fetch(`${API_BASE_URL}/processed/`, {
     method: "GET",
     headers: getHeaders(),
     credentials: "include",
@@ -445,7 +445,7 @@ export const getFinalStage = async () => {
 };
 export const getStageComments = async (customerId, stageNumber) => {
   const res = await fetch(
-    `${API_BASE_URL}/api/customer-stages/stage-comment/get?customerId=${customerId}&stageNumber=${stageNumber}`,
+    `${API_BASE_URL}/customer-stages/stage-comment/get?customerId=${customerId}&stageNumber=${stageNumber}`,
     {
       method: "GET",
       headers: getHeaders(),
@@ -459,7 +459,7 @@ export const getStageComments = async (customerId, stageNumber) => {
 };
 export const getProcessPersonMeetingsApi = async () => {
   const res = await fetch(
-    `${API_BASE_URL}/api/process-history/process-followup/get-meeting`,
+    `${API_BASE_URL}/process-history/process-followup/get-meeting`,
     {
       method: "GET",
       headers: getHeaders(),
@@ -474,7 +474,7 @@ export const getProcessPersonMeetingsApi = async () => {
   return data; // expected format: { meetings: [...] }
 };
 export const getAllNotificationsByUser = async (userRole, page = 1) => {
-  const response = await fetch(`${API_BASE_URL}/api/notification/user?page=${page}`, {
+  const response = await fetch(`${API_BASE_URL}/notification/user?page=${page}`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -490,7 +490,7 @@ export const getAllNotificationsByUser = async (userRole, page = 1) => {
   return data; // Contains { notifications, pagination }
 };
 export const getAllProcessPersonsApi = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/processperson/`, {
+  const res = await fetch(`${API_BASE_URL}/processperson/`, {
     method: "GET",
     headers: getHeaders(),
     credentials: "include",
@@ -501,7 +501,7 @@ export const getAllProcessPersonsApi = async () => {
   return data;
 };
 export const createProcessforConvertedApi = async (payload) => {
-  const response = await fetch(`${API_BASE_URL}/api/processperson/assign-process-person`, {
+  const response = await fetch(`${API_BASE_URL}/processperson/assign-process-person`, {
     method: "POST",
     headers: getHeaders(),
     credentials: "include",
@@ -517,7 +517,7 @@ export const createProcessforConvertedApi = async (payload) => {
   return data; // Contains { notifications, pagination }
 };
 export const getAllProcessCustomerIdApi = async () => {
-const res = await fetch(`${API_BASE_URL}/api/processperson/get-customers`, {
+const res = await fetch(`${API_BASE_URL}/processperson/get-customers`, {
 method: "GET",
 headers: getHeaders(),
 credentials: "include",
@@ -528,7 +528,7 @@ if (!res.ok) throw new Error(data.error || "Failed to fetch");
 return data.customers;
 };
 export const getAllProcessPersonsFollowupApi = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/api/process-history/all-followups/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/process-history/all-followups/${id}`, {
     method: "GET",
     headers: getHeaders(),
     credentials: "include",

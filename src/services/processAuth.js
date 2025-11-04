@@ -12,7 +12,7 @@ const BASE_HEADERS = {
 // ------------------------------LOGIN--------------------------- //
 export const loginUser = async (email, password) => {
   const tryLogin = async (userType) => {
-    const res = await fetch(`${API_BASE_URL}/api/${userType}/login`, {
+    const res = await fetch(`${API_BASE_URL}/${userType}/login`, {
       method: "POST",
       headers: BASE_HEADERS,
       credentials: "include",
@@ -40,7 +40,7 @@ export const loginUser = async (email, password) => {
 
 // ------------------------------SIGNUP--------------------------- //
 export const signupUser = async (fullName, email, password, userType = "processperson") => {
-  const res = await fetch(`${API_BASE_URL}/api/${userType}/signup`, {
+  const res = await fetch(`${API_BASE_URL}/${userType}/signup`, {
     method: "POST",
     headers: BASE_HEADERS,
     credentials: "include",
@@ -62,7 +62,7 @@ export const signupUser = async (fullName, email, password, userType = "processp
 export const logoutUser = async (userType = "customer") => {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${API_BASE_URL}/api/${userType}/logout`, {
+  const res = await fetch(`${API_BASE_URL}/${userType}/logout`, {
     method: "POST",
     headers: {
       ...BASE_HEADERS,
