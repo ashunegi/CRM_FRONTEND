@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api";
 const COMPANY_ID =
-  process.env.REACT_APP_COMPANY_ID || "41e7691e-d9ca-436f-83b3-de5f4d1b503b";// Shared headers
+  process.env.REACT_APP_COMPANY_ID || "492ad26e-21d1-471b-8521-d5c9736758c9";// Shared headers
 const BASE_HEADERS = {
   "Content-Type": "application/json",
   "x-company-id": COMPANY_ID,
