@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const COMPANY_ID =
-  process.env.REACT_APP_COMPANY_ID || "492ad26e-21d1-471b-8521-d5c9736758c9";
+  process.env.REACT_APP_COMPANY_ID || "23e75197-a219-4faf-b30b-f8376d87671e";
   
   const authApi = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api",

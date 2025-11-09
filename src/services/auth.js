@@ -8,7 +8,7 @@ const API_BASE_URL =
 // Shared headers
 const BASE_HEADERS = {
   "Content-Type": "application/json",
-  "x-company-id": process.env.REACT_APP_COMPANY_ID || "492ad26e-21d1-471b-8521-d5c9736758c9",
+  "x-company-id": process.env.REACT_APP_COMPANY_ID || "23e75197-a219-4faf-b30b-f8376d87671e",
 };
 
 /*------------------------------LOGIN (fetch)---------------------------*/
