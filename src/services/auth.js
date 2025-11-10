@@ -144,7 +144,7 @@ export const logoutUser = async (executiveName) => {
     const token = localStorage.getItem("token");
 
     const response = await apiService.post(
-      "api/logout",
+      "/logout",
       {
         executiveName, // Now included in the request body
       },
